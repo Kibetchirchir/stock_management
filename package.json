@@ -8,7 +8,7 @@
     "dev-start": "ts-node ./src/index.ts",
     "dev": "nodemon -e ts -w ./src -x npm run dev-start",
     "build-dev": "tsc && npm start",
-    "build": "rm -rf dist && tsc cp -r ./src/templates ./dist/templates",
+    "build": "rm -rf dist && tsc --build",
     "lint": "tsc --noEmit && eslint 'src/*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "nodemonConfig": {
@@ -43,6 +43,7 @@
   "author": "dev-team <dev-team@exuus.com> (https://www.exuus.com/)",
   "dependencies": {
     "cors": "^2.8.5",
+    "coverage": "^0.4.1",
     "express": "^4.17.1",
     "sequelize": "^5.21.6",
     "ts-node": "^8.5.2",
