@@ -1,9 +1,6 @@
 language: node_js
 node_js:
   - '11.10.1'
-env:
-  global:
-    - CC_TEST_REPORTER_ID=720e4361b991c2ce04923e9be5d3aa4e0eeb9615448374c197de8454483c4b38n
 
 services:
   - postgresql
