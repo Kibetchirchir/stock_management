@@ -2,17 +2,36 @@
   "name": "save-plus-api",
   "version": "1.0.0",
   "description": "Save plus is an app to help people pull funds to help one o a group achieve something",
+  "keywords": [
+    "promise",
+    "async",
+    "UnhandledPromiseRejectionWarning",
+    "PromiseRejectionHandledWarning"
+  ],
+  "author": "dev-team <dev-team@exuus.com> (https://www.exuus.com/)",
   "main": ".dist/index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "dev-start": "ts-node ./src/index.ts",
-    "dev": "nodemon -e ts -w ./src -x npm run dev-start",
-    "build-dev": "tsc && npm start",
     "build": "rm -rf dist && tsc --build",
+    "build-dev": "tsc && npm start",
+    "dev": "nodemon -e ts -w ./src -x npm run dev-start",
+    "dev-start": "ts-node ./src/index.ts",
     "lint": "tsc --noEmit && eslint 'src/*/**/*.{js,ts,tsx}' --quiet --fix",
+    "start": "node ./dist/index.js",
     "test": "jest --coverage"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "git add"
+    ]
+  },
   "nodemonConfig": {
+    "exec": "npm run dev",
+    "ext": "ts",
     "ignore": [
       "**/*.test.ts",
       "**/*.spec.ts",
@@ -21,27 +40,8 @@
     ],
     "watch": [
       "src/"
-    ],
-    "exec": "npm run dev",
-    "ext": "ts"
-  },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "git add"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && lint-staged"
-    }
-  },
-  "keywords": [
-    "promise",
-    "async",
-    "UnhandledPromiseRejectionWarning",
-    "PromiseRejectionHandledWarning"
-  ],
-  "author": "dev-team <dev-team@exuus.com> (https://www.exuus.com/)",
   "dependencies": {
     "@types/supertest": "^2.0.8",
     "cors": "^2.8.5",
