@@ -1,23 +1,15 @@
-import * as Sequelize from 'sequelize';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
+import { Sequelize } from 'sequelize';
 const DBConfig = require('../config/config');
 const env = process.env.NODE_ENV || 'development';
 const config = DBConfig[env];
 
-export const sequelize = new Sequelize.Sequelize(
+export const sequelize = new Sequelize(
   process.env[config.use_env_variable] as string,
   config,
 );
 
-interface Database {
-  sequelize: Sequelize.Sequelize;
-}
-
-const db: Database = {
-  sequelize,
-};
-
-export default db;
+export default sequelize;

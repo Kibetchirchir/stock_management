@@ -1,0 +1,122 @@
+Arguments: 
+  /snap/node/2799/bin/node /snap/node/2799/bin/yarn.js db:reset:migrate:seed:test
+
+PATH: 
+  /home/chirchir/.nvm/versions/node/v12.16.2/bin:/opt/glassfish4/bin:/home/chirchir/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/home/chirchir/go/bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  14.4.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/chirchir/Desktop/projects/js/node/stock-management/package.json: Unexpected token c in JSON at position 1006
+      at JSON.parse (<anonymous>)
+      at /snap/node/2799/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/snap/node/2799/lib/cli.js:310:30)
+      at /snap/node/2799/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "save-plus-api",
+    "version": "1.0.0",
+    "description": "Save plus is an app to help people pull funds to help one o a group achieve something",
+    "keywords": [
+      "promise",
+      "async",
+      "UnhandledPromiseRejectionWarning",
+      "PromiseRejectionHandledWarning"
+    ],
+    "author": "dev-team <dev-team@exuus.com> (https://www.exuus.com/)",
+    "main": ".dist/index.js",
+    "scripts": {
+      "build": "rm -rf dist && tsc --build",
+      "build-dev": "tsc && npm start",
+      "dev": "nodemon -e ts -w ./src -x npm run dev-start",
+      "dev-start": "ts-node ./src/index.ts",
+      "lint": "tsc --noEmit && eslint 'src/*/**/*.{js,ts,tsx}' --quiet --fix",
+      "start": "node ./dist/index.js",
+      "test": "cross-env NODE_ENV=test jest --coverage --forceExit --detectOpenHandles  --runInBand",
+      "test:migrate:seed": "npm run db:reset:migrate:seed:test && npm run test",
+      "db:migrate": "sequelize db:migrate",
+      "db:reset:migrate:seed:test": "cross-env NODE_ENV=test npm run db:reset:migrate:seed",": "cross-env NODE_ENV=test npm run db:reset:migrate:seed"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "npm run lint && lint-staged"
+      }
+    },
+    "lint-staged": {
+      "*.{js,ts}": [
+        "git add"
+      ]
+    },
+    "nodemonConfig": {
+      "exec": "npm run dev",
+      "ext": "ts",
+      "ignore": [
+        "**/*.test.ts",
+        "**/*.spec.ts",
+        ".git",
+        "node_modules"
+      ],
+      "watch": [
+        "src/"
+      ]
+    },
+    "dependencies": {
+      "@types/supertest": "^2.0.8",
+      "@types/validator": "^13.0.0",
+      "celebrate": "^12.1.1",
+      "cors": "^2.8.5",
+      "coverage": "^0.4.1",
+      "cross-env": "^7.0.2",
+      "express": "^4.17.1",
+      "pg": "^8.2.1",
+      "sequelize": "^5.21.6",
+      "ts-node": "^8.5.2",
+      "typescript": "^3.7.2"
+    },
+    "devDependencies": {
+      "@babel/cli": "^7.7.0",
+      "@babel/core": "^7.7.2",
+      "@babel/node": "^7.7.0",
+      "@babel/polyfill": "^7.7.0",
+      "@babel/preset-env": "^7.7.1",
+      "@babel/register": "^7.7.0",
+      "@types/cors": "^2.8.6",
+      "@types/dotenv": "^8.2.0",
+      "@types/express": "^4.17.2",
+      "@types/jest": "^25.2.1",
+      "@typescript-eslint/eslint-plugin": "^2.8.0",
+      "@typescript-eslint/parser": "^2.8.0",
+      "babel-eslint": "^10.0.3",
+      "coveralls": "^3.0.13",
+      "eslint": "^6.6.0",
+      "eslint-config-prettier": "^6.7.0",
+      "eslint-config-standard": "^14.1.0",
+      "eslint-plugin-import": "^2.18.2",
+      "eslint-plugin-node": "^10.0.0",
+      "eslint-plugin-prettier": "^3.1.1",
+      "eslint-plugin-promise": "^4.2.1",
+      "eslint-plugin-standard": "^4.0.1",
+      "husky": "^3.1.0",
+      "jest": "^25.4.0",
+      "lint-staged": "^9.4.3",
+      "nodemon": "^2.0.0",
+      "prettier": "^1.19.1",
+      "supertest": "^4.0.2",
+      "ts-jest": "^25.4.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

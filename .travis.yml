@@ -7,6 +7,8 @@ services:
 
 install:
   - npm install
+  - npm install sequelize-cli
+
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
@@ -15,6 +17,7 @@ before_script:
     > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+  - export DATABASE_URL_TEST='postgres://postgres:''@localhost:5432/stock_management_test'
 
 script:
   - npm run test
