@@ -23,7 +23,7 @@
     "db:reset:migrate:seed": "npm run db:reset && npm run db:migrate && npm run db:seed",
     "db:seed": "node_modules/.bin/sequelize db:seed:all",
     "db:reset": "npm run db:drop && npm run db:create",
-    "db:reset:migrate:seed:test": "cross-env NODE_ENV=test npm run db:reset:migrate:seed",
+    "db:reset:migrate:seed:test": "cross-env NODE_ENV=test npm run db:reset:migrate:seed && npm run test",
     "db:drop": "node_modules/.bin/sequelize db:drop",
     "db:create": "node_modules/.bin/sequelize db:create"
   },

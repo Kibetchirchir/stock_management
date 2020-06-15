@@ -2,6 +2,10 @@ language: node_js
 node_js:
   - '11.10.1'
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=6976ab254fd2c28761a002a7d1e68d34d56aad5f826f22bcb1316c2321bbdbb8
+
 services:
   - postgresql
 
@@ -11,7 +15,7 @@ install:
 
 
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -c 'create database stock_management_test;' -U postgres
   - curl -L
     https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
     > ./cc-test-reporter
@@ -20,7 +24,7 @@ before_script:
   - export DATABASE_URL_TEST='postgres://postgres:''@localhost:5432/stock_management_test'
 
 script:
-  - npm run test
+  - npm run db:reset:migrate:seed:test
   - npm run build
 
 after_success:
