@@ -17,7 +17,15 @@
     "dev-start": "ts-node ./src/index.ts",
     "lint": "tsc --noEmit && eslint 'src/*/**/*.{js,ts,tsx}' --quiet --fix",
     "start": "node ./dist/index.js",
-    "test": "jest --coverage"
+    "test": "cross-env NODE_ENV=test jest --coverage --forceExit --detectOpenHandles  --runInBand",
+    "test:migrate:seed": "npm run db:reset:migrate:seed:test && npm run test",
+    "db:migrate": "sequelize db:migrate",
+    "db:reset:migrate:seed": "npm run db:reset && npm run db:migrate && npm run db:seed",
+    "db:seed": "node_modules/.bin/sequelize db:seed:all",
+    "db:reset": "npm run db:drop && npm run db:create",
+    "db:reset:migrate:seed:test": "cross-env NODE_ENV=test npm run db:reset:migrate:seed && npm run test",
+    "db:drop": "node_modules/.bin/sequelize db:drop",
+    "db:create": "node_modules/.bin/sequelize db:create"
   },
   "husky": {
     "hooks": {
@@ -43,10 +51,16 @@
     ]
   },
   "dependencies": {
+    "@types/bluebird": "^3.5.32",
+    "@types/hapi__joi": "^17.1.2",
     "@types/supertest": "^2.0.8",
+    "@types/validator": "^13.0.0",
+    "celebrate": "^12.1.1",
     "cors": "^2.8.5",
     "coverage": "^0.4.1",
+    "cross-env": "^7.0.2",
     "express": "^4.17.1",
+    "pg": "^8.2.1",
     "sequelize": "^5.21.6",
     "ts-node": "^8.5.2",
     "typescript": "^3.7.2"
