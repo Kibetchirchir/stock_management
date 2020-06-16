@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import Product from '../../../../database/models/products';
+import ProductQuantity from '../../../../database/models/product_quantities';
+import async, { compose } from 'async';
 /**
  * Product class
  */
@@ -24,6 +26,38 @@ class ProductController {
       status: 200,
       message: 'created',
       product,
+    });
+  }
+
+  /**
+   *
+   * @param {Request} req
+   * @param {Respnse} res
+   * @returns {Response} the response
+   */
+  static async createProductsQuantity(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const { productQuantities } = req.body;
+
+    async.eachOf(
+      productQuantities,
+      async (productQuantity: ProductQuantity) => {
+        console.log(productQuantities)
+        const { quantity, metric } = productQuantity;
+        const record = {
+          quantity,
+          metric,
+        };
+
+        await ProductQuantity.create(record);
+      },
+    );
+
+    return res.status(201).json({
+      message: 'created',
+      productQuantities,
     });
   }
 }
