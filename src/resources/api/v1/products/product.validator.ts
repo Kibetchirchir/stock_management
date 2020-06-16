@@ -6,3 +6,13 @@ export const productValidator = celebrate({
     description: Joi.string().required(),
   },
 });
+
+export const productQuantityValidator = celebrate({
+  body: {
+    productQuantities: Joi.array()
+      .items(
+        Joi.object().keys({ quantity: Joi.number(), metric: Joi.string() }),
+      )
+      .required(),
+  },
+});
