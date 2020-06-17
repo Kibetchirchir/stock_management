@@ -4,15 +4,16 @@ import {
   productValidator,
   productQuantityValidator,
 } from './product.validator';
+import asyncHandler from '../../../../middleware/async_handler';
 
 const router = Router();
 
-router.post('/', productValidator, ProductController.CreateOne);
+router.post('/', productValidator, asyncHandler(ProductController.CreateOne));
 
 router.post(
   '/quantites',
   productQuantityValidator,
-  ProductController.createProductsQuantity,
+  asyncHandler(ProductController.createProductsQuantity),
 );
 
 export default router;
