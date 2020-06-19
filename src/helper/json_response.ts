@@ -17,7 +17,7 @@ interface JsonResponseI {
   status: number;
   res: Response;
   message: string;
-  data: Array<object>;
+  data?: Array<object>;
 }
 
 export default jsonResponse;
