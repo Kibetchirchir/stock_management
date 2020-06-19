@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import Product from '../../../../database/models/products';
 import ProductQuantity from '../../../../database/models/product_quantities';
-import async from 'async';
 import jsonResponse from '../../../../helper/json_response';
 import { CREATED } from '../../../../constants/response_status';
 /**
@@ -44,30 +43,25 @@ class ProductController {
   ): Promise<Response> {
     const { productQuantities } = req.body;
 
-    async.eachOf(
-      productQuantities,
-      async (
-        productQuantity: ProductQuantity,
-        index: number | string,
-        callback: any,
-      ) => {
-        console.log(index);
-        const { quantity, metric } = productQuantity;
-        const record = {
-          quantity,
-          metric,
-        };
+    const productQuantitiesArray: Array<ProductQuantity> = []
 
-        await ProductQuantity.create(record);
-        callback();
-      },
-    );
+    for (const productQuantity of productQuantities) {
+      const { quantity, metric } = productQuantity;
 
+      const record = {
+        quantity,
+        metric,
+      }
+
+      const dbRecord = await ProductQuantity.create(record);
+
+      productQuantitiesArray.push(dbRecord);
+    }
     return jsonResponse({
       res,
       status: CREATED,
       message: 'created',
-      data: productQuantities,
+      data: productQuantitiesArray,
     });
   }
 }
