@@ -43,7 +43,7 @@ class ProductController {
   ): Promise<Response> {
     const { productQuantities } = req.body;
 
-    const productQuantitiesArray: Array<ProductQuantity> = []
+    const productQuantitiesArray: Array<ProductQuantity> = [];
 
     for (const productQuantity of productQuantities) {
       const { quantity, metric } = productQuantity;
@@ -51,7 +51,7 @@ class ProductController {
       const record = {
         quantity,
         metric,
-      }
+      };
 
       const dbRecord = await ProductQuantity.create(record);
 
