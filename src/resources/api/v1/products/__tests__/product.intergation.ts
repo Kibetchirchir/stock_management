@@ -1,15 +1,15 @@
-import app from '../../../../../app';
-import request from 'supertest';
 import {
   CREATED,
   SERVER_ERROR,
+  OK,
 } from '../../../../../constants/response_status';
 import SuperTestRequest from '../../../../../helper/supertest';
 
 const urlPrefix = '/api/v1';
 
+const testInstance = new SuperTestRequest(urlPrefix, '/products');
+
 const productInstance = async (): Promise<Response> => {
-  const testInstance = new SuperTestRequest(urlPrefix, '/products');
   const res = await testInstance.post({
     name: 'K-gas',
     description: 'K gas',
@@ -26,5 +26,9 @@ describe('test products integration', () => {
   test('test failed product adding', async () => {
     const res = await productInstance();
     expect(res.status).toBe(SERVER_ERROR);
+  });
+  test('get all products', async () => {
+    const res = await testInstance.get();
+    expect(res.status).toBe(OK);
   });
 });

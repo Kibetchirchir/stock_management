@@ -27,6 +27,14 @@ class SuperTestRequest {
 
     return (res as unknown) as Response;
   }
+  /**
+   * @returns { Response | any } returns promise
+   */
+  async get(): Promise<Response> {
+    const res = await request(app).get(`${this.url}`);
+
+    return (res as unknown) as Response;
+  }
 }
 
 export default SuperTestRequest;
