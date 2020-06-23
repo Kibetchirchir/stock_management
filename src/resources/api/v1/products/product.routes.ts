@@ -8,7 +8,7 @@ import asyncHandler from '../../../../middleware/async_handler';
 
 const router = Router();
 
-router.post('/', productValidator, asyncHandler(ProductController.CreateOne));
+router.post('/', productValidator, asyncHandler(ProductController.createOne));
 
 router.get('/', asyncHandler(ProductController.getAllProducts));
 

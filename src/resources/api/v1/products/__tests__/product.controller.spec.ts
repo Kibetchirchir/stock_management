@@ -24,7 +24,7 @@ describe('product controller', () => {
 
       jest.spyOn(Product, 'create').mockResolvedValue;
 
-      await ProductController.CreateOne(req, res);
+      await ProductController.createOne(req, res);
 
       expect(Product.create).toBeCalled();
     });

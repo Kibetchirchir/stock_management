@@ -13,7 +13,7 @@ class ProductController {
    * @param {Response} res
    * @returns {Object} returns an object
    */
-  static async CreateOne(req: Request, res: Response): Promise<Response> {
+  static async createOne(req: Request, res: Response): Promise<Response> {
     const { name, description } = req.body;
 
     const record = {
