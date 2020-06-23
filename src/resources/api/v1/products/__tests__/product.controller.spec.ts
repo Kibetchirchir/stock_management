@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Product from '../../../../../database/models/products';
 import ProductController from '../product.controller';
 import ProductQuantity from '../../../../../database/models/product_quantities';
+import { NOT_FOUND } from '../../../../../constants/response_status';
 
 const res = ({
   status: jest.fn(() => ({
@@ -9,10 +10,12 @@ const res = ({
   })),
 } as unknown) as Response;
 
+let req = {} as Request;
+
 describe('product controller', () => {
   describe('products', () => {
     test('product should be added', async () => {
-      const req = {
+      req = {
         body: {
           name: 'test',
           description: 'testing',
@@ -24,6 +27,22 @@ describe('product controller', () => {
       await ProductController.CreateOne(req, res);
 
       expect(Product.create).toBeCalled();
+    });
+
+    test('get all products', async () => {
+      jest.spyOn(Product, 'findAll');
+
+      await ProductController.getAllProducts(req, res);
+
+      expect(Product.findAll).toHaveBeenCalled();
+    });
+
+    test('return 404 when the db has no products', async () => {
+      jest.spyOn(Product, 'findAll').mockResolvedValue([]);
+
+      const response = await ProductController.getAllProducts(req, res);
+
+      // expect(response.status).toEqual(NOT_FOUND);
     });
   });
   describe('productsQuantity', () => {

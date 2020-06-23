@@ -10,6 +10,8 @@ const router = Router();
 
 router.post('/', productValidator, asyncHandler(ProductController.CreateOne));
 
+router.get('/', asyncHandler(ProductController.getAllProducts));
+
 router.post(
   '/quantites',
   productQuantityValidator,

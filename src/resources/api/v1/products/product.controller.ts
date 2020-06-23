@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import Product from '../../../../database/models/products';
 import ProductQuantity from '../../../../database/models/product_quantities';
 import jsonResponse from '../../../../helper/json_response';
-import { CREATED } from '../../../../constants/response_status';
+import { CREATED, NOT_FOUND, OK } from '../../../../constants/response_status';
 /**
  * Product class
  */
@@ -62,6 +62,30 @@ class ProductController {
       status: CREATED,
       message: 'created',
       data: productQuantitiesArray,
+    });
+  }
+  /**
+   * @description gets all products
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {Response} the response and all products
+   */
+  static async getAllProducts(req: Request, res: Response): Promise<Response> {
+    const products = await Product.findAll();
+
+    if (products.length === 0) {
+      return jsonResponse({
+        res,
+        status: NOT_FOUND,
+        message: 'no products',
+      });
+    }
+
+    return jsonResponse({
+      res,
+      status: OK,
+      message: 'products',
+      data: products,
     });
   }
 }
