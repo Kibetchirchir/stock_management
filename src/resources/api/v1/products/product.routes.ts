@@ -3,6 +3,7 @@ import ProductController from './product.controller';
 import {
   productValidator,
   productQuantityValidator,
+  productTypesValidator,
 } from './product.validator';
 import asyncHandler from '../../../../middleware/async_handler';
 
@@ -16,6 +17,12 @@ router.post(
   '/quantites',
   productQuantityValidator,
   asyncHandler(ProductController.createProductsQuantity),
+);
+
+router.post(
+  '/:id/types',
+  productTypesValidator,
+  asyncHandler(ProductController.createProductTypes),
 );
 
 export default router;
