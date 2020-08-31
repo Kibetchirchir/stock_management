@@ -3,6 +3,7 @@ import Product from '../../../../database/models/products';
 import ProductQuantity from '../../../../database/models/product_quantities';
 import jsonResponse from '../../../../helper/json_response';
 import { CREATED, NOT_FOUND, OK } from '../../../../constants/response_status';
+import ProductType from '../../../../database/models/products_type';
 /**
  * Product class
  */
@@ -86,6 +87,45 @@ class ProductController {
       status: OK,
       message: 'products',
       data: products,
+    });
+  }
+
+  /**
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {Response} an express response
+   */
+  static async createProductTypes(
+    req: Request,
+    res: Response,
+  ): Promise<Response> {
+    const {
+      body: { quantity, metric },
+      params: { id: productId },
+    } = req;
+    const product = await Product.findOne({
+      where: {
+        id: productId,
+      },
+    });
+    if (!product) {
+      return jsonResponse({
+        res,
+        message: 'the product is not available',
+        status: NOT_FOUND,
+      });
+    }
+    const productTypes = await ProductType.create({
+      quantity,
+      metric,
+      product_id: productId,
+    });
+    return jsonResponse({
+      res,
+      status: CREATED,
+      message: 'product types created successful',
+      data: [productTypes],
     });
   }
 }
