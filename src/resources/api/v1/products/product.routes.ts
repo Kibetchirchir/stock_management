@@ -4,6 +4,7 @@ import {
   productValidator,
   productQuantityValidator,
   productTypesValidator,
+  oneProductValidator,
 } from './product.validator';
 import asyncHandler from '../../../../middleware/async_handler';
 
@@ -23,6 +24,12 @@ router.post(
   '/:id/types',
   productTypesValidator,
   asyncHandler(ProductController.createProductTypes),
+);
+
+router.get(
+  '/:id',
+  oneProductValidator,
+  asyncHandler(ProductController.getOneProduct),
 );
 
 export default router;

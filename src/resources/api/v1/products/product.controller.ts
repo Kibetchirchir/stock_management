@@ -128,6 +128,37 @@ class ProductController {
       data: [productTypes],
     });
   }
+
+  /**
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @returns {Response} the express response
+   */
+  static async getOneProduct(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const product = await Product.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!product) {
+      return jsonResponse({
+        res,
+        status: NOT_FOUND,
+        message: 'The product was not found',
+      });
+    }
+
+    return jsonResponse({
+      res,
+      status: OK,
+      message: 'products related',
+      data: [product],
+    });
+  }
 }
 
 export default ProductController;
