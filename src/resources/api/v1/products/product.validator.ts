@@ -26,3 +26,9 @@ export const productTypesValidator = celebrate({
     metric: Joi.string().required(),
   },
 });
+
+export const oneProductValidator = celebrate({
+  params: {
+    id: Joi.number().required(),
+  },
+});
